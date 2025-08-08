@@ -1,0 +1,116 @@
+:root{
+  --bg: #f6f7f9;
+  --panel: #fff;
+  --accent: #2c7be5;
+  --muted: #666;
+  --mono: "Courier New", Courier, monospace;
+  --chord-color: #1f4fa8;
+}
+
+/* reset / layout básico */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+header{background:var(--accent);color:#fff;padding:12px 20px}
+header h1{margin:0;font-size:18px}
+main{display:flex;flex-direction:column;padding:16px;gap:12px;background:var(--bg);min-height:calc(100vh - 110px)}
+
+.metadata{display:flex;gap:12px;flex-wrap:wrap}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12px;color:var(--muted)}
+.field input, .field select{padding:8px;border-radius:6px;border:1px solid #ddd;background:var(--panel);min-width:160px}
+
+.controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.controls label{font-size:13px;color:var(--muted)}
+.left-controls, .middle-controls, .right-controls{display:flex;align-items:center;gap:8px}
+
+/* small helpers */
+button{padding:6px 10px;border-radius:6px;border:none;background:var(--accent);color:#fff;cursor:pointer}
+button.secondary{background:#666}
+input[type="color"]{width:36px;height:30px;padding:0;border:0;cursor:pointer}
+.switch{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13px}
+
+/* editor */
+.editor{display:flex;gap:12px;flex:1;align-items:stretch}
+.code-editor{width:48%;background:var(--panel);border:1px solid #e3e3e3;border-radius:8px;display:flex;overflow:hidden}
+.line-numbers{width:40px;background:#f0f0f0;padding:10px;font-family:var(--mono);font-size:13px;color:var(--muted);text-align:right;overflow:hidden}
+.code-editor textarea{flex:1;border:0;padding:12px;font-family:var(--mono);font-size:14px;line-height:1.5;resize:none;outline:none;min-height:420px}
+
+/* preview */
+.preview{width:52%;background:var(--panel);border:1px solid #e3e3e3;border-radius:8px;padding:12px;overflow:auto;min-height:420px}
+.song-meta h2{margin:0 0 6px 0;font-size:20px}
+.song-meta p{margin:2px 0;color:var(--muted);font-size:13px}
+
+/* section label */
+.section-label{font-weight:700;background:#f2f6ff;border-radius:4px;padding:6px;margin:8px 0;color:#1f4fa8;border:1px solid #dbe9ff;text-transform:uppercase;letter-spacing:0.6px}
+
+/* page-break visual */
+.page-break{border-top:1px dashed #ccc;color:#999;margin:10px 0;padding:8px;text-align:center;font-size:12px}
+
+/* tabela cifra+letra - compacto */
+.preview table {
+  width:100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2px 0;
+}
+
+.preview td {
+  padding: 0 4px;
+  vertical-align: top;
+  line-height: 1.15;
+  font-size: 14px;
+}
+
+/* acorde (linha superior) — menos altura */
+.preview .cell-chord {
+  font-family: var(--mono);
+  font-weight: 700;
+  text-align: center;
+  padding-top: 2px;
+  padding-bottom: 0;
+  line-height: 1;
+  font-size: 13px;
+  color: var(--chord-color);
+}
+
+/* letra (linha inferior) — compacto */
+.preview .cell-lyric {
+  padding-top: 0;
+  padding-bottom: 2px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.2;
+}
+
+/* parágrafos e hr compactos */
+.preview p {
+  margin: 2px 0;
+  line-height: 1.25;
+  font-size: 14px;
+}
+.song-meta hr {
+  margin: 8px 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+/* letras-only (esconde tabela de cifra) */
+.lyrics-only .section-label{background:transparent;color:#000}
+.lyrics-only .cell-chord, .lyrics-only table { display:none; }
+
+/* opção ainda mais compacta se quiser ligar via JS (.compact) */
+.preview.compact .cell-chord,
+.preview.compact .cell-lyric {
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 1.05;
+}
+
+/* print: apenas a pré-visualização (WYSIWYG) */
+@media print {
+  header, .metadata, .controls, .code-editor, footer { display:none !important; }
+  .preview{width:100%;border:none;padding:0;margin:0}
+  body{background:#fff}
+  .section-label{page-break-inside:avoid}
+  table{page-break-inside:auto}
+}
